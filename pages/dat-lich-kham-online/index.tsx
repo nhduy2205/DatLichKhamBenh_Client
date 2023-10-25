@@ -1,7 +1,38 @@
 import Link from "next/link";
-
+import React, {useState} from "react";
 import "./../../app/globals.css";
+import axios from "axios";
+
 export default function DatLichKham() {
+  const [formData, setFormData] = useState({
+    sodienthoai: ''
+  });
+
+  const {sodienthoai} = formData;
+  const onChange = e => setFormData({...formData, [e.target.name]: e.target.value});
+  const onSubmit = async e => {
+    e.preventDefault();
+    if(sodienthoai === null || sodienthoai === ""){
+      console.log('sodienthoai is null');
+    }else{
+      const loginUser = {sodienthoai}
+      try {
+        const config = {
+          headers: {
+             'Content-Type': 'application/json'
+          }
+        }
+        const body = JSON.stringify(loginUser);
+        console.log(body);
+        const res = await axios.post('http://localhost:5000/api/benhnhan/dangnhap', body, config);
+        console.log(res.data);
+        
+      } catch (err) {
+        console.log(err);
+      }
+    }
+    
+  }
   return (
     <div className="bg-white">
       <div className="absolute top-0 left-0 w-full z-50 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 bg-white">
@@ -87,7 +118,7 @@ export default function DatLichKham() {
             <h1 className="text-2xl font-bold">Đăng nhập bằng số điện thoại</h1>
           </div>
           <div className="flex justify-center items-center">
-            <form className="mt-8 space-y-6">
+            <form className="mt-8 space-y-6" onSubmit={e => onSubmit(e)}>
               <div>
                 <label
                   htmlFor="Số điện thoại"
@@ -96,9 +127,10 @@ export default function DatLichKham() {
                  Số điện thoại
                 </label>
                 <input
-                  id="phone"
-                  type="phone"
+                  type="text"
+                  name='sodienthoai'
                   placeholder="Nhập số điện thoại"
+                  onChange={e => onChange(e)}
                   className="w-full px-4 py-3 mt-1 border border-gray-300 rounded-md focus:border-indigo-500 focus:ring focus:ring-indigo-200"
                   required
                 />
