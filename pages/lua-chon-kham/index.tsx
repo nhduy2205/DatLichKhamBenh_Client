@@ -37,7 +37,7 @@ export default function DatLichKham() {
                 </button>
                 </Link>
                 
-                <div className="grid grid-cols-3 gap-4 mt-4 ">
+                <div className="grid grid-cols-3 gap-4 mt-4">
                   <div className="block rounded-lg bg-white p-4 flex flex-col justify-center items-center">
                     <img src="/phieu.png" alt="" className="w-20 h-20" />
                     <div>

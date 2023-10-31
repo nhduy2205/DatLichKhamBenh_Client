@@ -2,7 +2,10 @@ import Link from "next/link";
 
 export default function Header() {
   return (
-    <div className="relative w-full z-50 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 bg-white">
+    <div
+      className="relative w-full z-5 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 bg-white bg-indigo-500 
+      border-b-2 border-indigo-200"
+    >
       <div className="flex flex-wrap items-center justify-between py-3">
         <div className="w-1/2 md:w-auto">
           <a href="/" className="text-blue-600 font-bold text-2xl">
