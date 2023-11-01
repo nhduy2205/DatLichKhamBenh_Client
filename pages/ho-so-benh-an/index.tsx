@@ -1,6 +1,7 @@
 import { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import "./../../app/globals.css";
+import axios from "axios";
 import Header from "@/components/Heaser";
 import Footer from "@/components/footer";
 import { useForm } from "react-hook-form";
@@ -8,12 +9,29 @@ import { useForm } from "react-hook-form";
 export default function DatLichKham() {
   const [open, setOpen] = useState(true);
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data: any) => {
+  const onSubmit = async (data: any) => {
     const values = {
       ...data,
       gioitinh: data.gioitinh === 'true' ? true : false,
       ngaysinh: new Date(data.ngaysinh)
     }
+    try{
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = JSON.stringify(values);
+          console.log(body);
+          const res = await axios.post(
+            "http://localhost:5000/api/thongtinbenhnhan/themthongtinbenhnhan/6537de2f5671f3b353ac37b1",
+            body,
+            config
+          );
+    }catch(err){
+      console.log(err);
+    }
+    
     console.log('>>>values', values)
   }
   const cancelButtonRef = useRef(null);
