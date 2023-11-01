@@ -21,6 +21,7 @@ export default function DatLichKham() {
   return (
     <div className="bg-white">
       <Header />
+      <SectionDanhSachbenhNhan />
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
@@ -114,7 +115,7 @@ export default function DatLichKham() {
                           />
                           {errors.soBHYT && errors.soBHYT.type === "minLength" && (
                             <p className="text-red-700 text-sm">
-                               Số thẻ bảo hiểm y tế có 15 ký tự
+                              Số thẻ bảo hiểm y tế có 15 ký tự
                             </p>
                           )}
                           {errors.soBHYT && errors.soBHYT.type === "maxLength" && (
