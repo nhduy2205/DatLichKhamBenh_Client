@@ -5,10 +5,15 @@ import axios from "axios";
 import Header from "@/components/Heaser";
 import Footer from "@/components/footer";
 import { useForm } from "react-hook-form";
+import SectionDanhSachbenhNhan from "./SectionDanhSachHoSoBenh";
 
 export default function DatLichKham() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const { register, handleSubmit, formState: { errors } } = useForm();
+  if (typeof window !== 'undefined') {
+    const item: any = JSON.parse(localStorage.getItem('benhnhan')) || ''
+    
+}
   const onSubmit = async (data: any) => {
     const values = {
       ...data,
@@ -24,7 +29,7 @@ export default function DatLichKham() {
       const body = JSON.stringify(values);
           console.log(body);
           const res = await axios.post(
-            "http://localhost:5000/api/thongtinbenhnhan/themthongtinbenhnhan/6537de2f5671f3b353ac37b1",
+            `http://localhost:5000/api/thongtinbenhnhan/themthongtinbenhnhan/6537de2f5671f3b353ac37b1/${item?.id}`,
             body,
             config
           );
@@ -39,7 +44,7 @@ export default function DatLichKham() {
   return (
     <div className="bg-white">
       <Header />
-      <SectionDanhSachbenhNhan />
+     
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
@@ -272,8 +277,9 @@ export default function DatLichKham() {
         </Dialog>
       </Transition.Root>
       <main className="w-full">
-        <div className="bg-gray-100">
-          <section className="cover relative bg-white px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-4">
+        <div className="bg-gray-200">
+          <section className="cover bg-gray-200 relative bg-white px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-4">
+          <p className="text-indigo-600 text-2xl font-bold">DANH SÁCH HỒ SƠ BỆNH ÁN</p>
             <button
               className="my-4 px-4 py-3 text-md font-bold text-white bg-orange-600 rounded-md border-solid 
             border-2 border-orange-600"
@@ -283,6 +289,7 @@ export default function DatLichKham() {
             >
               Tạo hồ sơ mới
             </button>
+            <SectionDanhSachbenhNhan  />
           </section>
         </div>
       </main>
