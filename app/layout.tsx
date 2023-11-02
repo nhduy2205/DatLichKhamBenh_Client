@@ -1,6 +1,8 @@
 import "./globals.css";
 import { Roboto } from "next/font/google";
 import "tw-elements/dist/css/tw-elements.min.css";
+import "react-datepicker/dist/react-datepicker.css";
+
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
