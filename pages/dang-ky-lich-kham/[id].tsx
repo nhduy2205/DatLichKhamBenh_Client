@@ -1,4 +1,4 @@
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef, useState, useEffect } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import "./../../app/globals.css";
 import axios from "axios";
@@ -11,34 +11,41 @@ export default function DatLichKham() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   const onSubmit = async (data: any) => {
-    const values = {
-      ...data,
-      gioitinh: data.gioitinh === 'true' ? true : false,
-      ngaysinh: new Date(data.ngaysinh)
-    }
-    try {
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      };
-      const body = JSON.stringify(values);
-      console.log(body);
-      if (typeof window !== 'undefined') {
-        const item: any = JSON.parse(localStorage.getItem('benhnhan')) || ''
-        // const res = await axios.post(
-        //   `http://localhost:5000/api/thongtinbenhnhan/themthongtinbenhnhan/${item?.id}`,
-        //   body,
-        //   config
-        // );
-        setOpen(false)
-      }
-    } catch (err) {
-      console.log(err);
-    }
+    // const values = {
+    //   ...data,
+    //   gioitinh: data.gioitinh === 'true' ? true : false,
+    //   ngaysinh: new Date(data.ngaysinh)
+    // }
+    // try {
+    //   const config = {
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   };
+    //   const body = JSON.stringify(values);
+    //   console.log(body);
+    //   if (typeof window !== 'undefined') {
+    //     const item: any = JSON.parse(localStorage.getItem('benhnhan')) || ''
+    //     const res = await axios.get(
+    //       `http://localhost:5000/api/thongtinbenhnhan/${item?.id}`);
+    //     setOpen(false)
+    //   }
+    // } catch (err) {
+    //   console.log(err);
+    // }
 
   }
   const cancelButtonRef = useRef(null);
+  const url = "http://localhost:5000/api/thongtinbenhnhan/654265c4c98064960cd65e0b";
+  const [thonTinKhamBenh, setData] = useState([])
+
+  const fetchInfo = () => {
+    return axios.get(url).then((res) => setData(res.data));
+  };
+  useEffect(() => {
+    fetchInfo();
+  }, []);
+  console.log(thonTinKhamBenh)
   return (
     <div className="bg-white">
       <Header />
