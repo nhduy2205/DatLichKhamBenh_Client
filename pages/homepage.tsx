@@ -14,10 +14,10 @@ export default function HomePage() {
               />
             </div>
   
-            <div className="lg:w-3/4 xl:w-2/4 relative z-10 h-100 lg:mt-16 ">
+            <div className="lg:w-3/4 xl:w-2/4 relative z-10 h-100">
               <div>
-                <h2 className="text-white text-3xl md:text-4xl xl:text-5xl font-bold leading-tight">
-                  Đặt lịch khám bệnh trực tuyến
+                <h2 className="text-white text-3xl md:text-4xl xl:text-5xl font-bold leading-tight uppercase">
+                  Đặt lịch khám bệnh <p className="mt-2">trực tuyến</p>
                 </h2>
                 <div className="grid grid-cols-3 gap-1 mt-4 ">
                   <div

@@ -276,7 +276,87 @@ export default function DatLichKham() {
       <main className="w-full">
         <div className="bg-gray-200">
           <section className="cover bg-gray-200 relative bg-white px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-4">
-          
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <div className="grid grid-cols-4 gap-4">
+
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Chọn khoa khám
+                </label>
+                <div>
+                  <select id="countries"
+                    {...register("khoakham", { required: true })}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500
+                     focus:border-blue-500 block w-full p-2.5">
+                    <option selected>Chọn Khoa khám</option>
+                    <option value="US">United States</option>
+                    <option value="CA">Canada</option>
+                    <option value="FR">France</option>
+                    <option value="DE">Germany</option>
+                  </select>
+
+                  {errors.khoakham && errors.khoakham.type === "required" && (
+                    <p className="text-red-700 text-sm">
+                      Vui lòng chọn khoa khám bệnh
+                    </p>
+                  )}
+                </div>
+
+
+              </div>
+              <div className="grid grid-cols-4 gap-4">
+
+                <label
+                  htmlFor="username"
+                  className="block text-sm font-medium leading-6 text-gray-900"
+                >
+                  Chọn Ngày khám
+                </label>
+                <div>
+                  <input
+                    data-date-format="DD MMMM YYYY"
+                    type="date"
+                    data-date=""
+                    placeholder="dd/mm/yyyy"
+                    id="username"
+                    pattern="\d{2}/\d{2}/\d{4}"
+                    {...register("ngaykham", { required: true })}
+                    className="block pl-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 
+                            ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
+                             focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  />
+                  {errors.ngaykham && errors.ngaykham.type === "required" && (
+                    <p className="text-red-700 text-sm">
+                      Vui lòng chọn ngày khám
+                    </p>
+                  )}
+                </div>
+
+
+              </div>
+              <div className="bg-white px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6 gap-x-4">
+                <button
+                  type="submit"
+                  className="mt-3 inline-flex w-full justify-center rounded-md 
+                        bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 
+                        ring-inset ring-gray-200 sm:mt-0 sm:w-auto"
+                >
+                  Đặt lịch khám
+                </button>
+                <button
+                  type="button"
+                  className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 
+                        text-sm font-semibold text-gray-700 shadow-sm ring-1 ring-inset ring-gray-400 
+                        hover:bg-gray-50 sm:mt-0 sm:w-auto"
+                  onClick={() => setOpen(false)}
+                  ref={cancelButtonRef}
+                >
+                  Hủy bỏ
+                </button>
+              </div>
+            </form>
           </section>
         </div>
       </main>
