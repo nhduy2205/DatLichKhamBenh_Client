@@ -44,7 +44,7 @@ const SectionList = React.forwardRef(function SectionTPHS(props: Props, ref) {
                     <a
                         className="rounded-sm w-full grid grid-cols-12 bg-white shadow p-3 gap-2 items-center 
                         hover:shadow-lg hover:border-2 hover-0 border-indigo-200 transition delay-150 duration-300 ease-in-out hover:scale-105 transform"
-                        href="#"
+                        href={"dang-ky-lich-kham/" + item?._id}
                     >
                         <div className="col-span-12 md:col-span-1">
                             <svg
