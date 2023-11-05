@@ -16,7 +16,9 @@ export default function DatLichKham() {
   const onSubmit = async (values: any) => {
     const data = {
       ...values,
-      khunggiokham: khunggiokham
+      khunggiokham: khunggiokham,
+      hinhthucthanhtoan: 'CK',
+      trangthaixacthuc: true
     }
     if (khunggiokham > 0) {
       setKhunggiokhamErrors('')
@@ -30,23 +32,25 @@ export default function DatLichKham() {
     //   gioitinh: data.gioitinh === 'true' ? true : false,
     //   ngaysinh: new Date(data.ngaysinh)
     // }
-    // try {
-    //   const config = {
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   };
-    //   const body = JSON.stringify(values);
-    //   console.log(body);
-    //   if (typeof window !== 'undefined') {
-    //     const item: any = JSON.parse(localStorage.getItem('benhnhan')) || ''
-    //     const res = await axios.get(
-    //       `http://localhost:5000/api/thongtinbenhnhan/${item?.id}`);
-    //     setOpen(false)
-    //   }
-    // } catch (err) {
-    //   console.log(err);
-    // }
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = JSON.stringify(data);
+      console.log(body);
+      const res = await axios.post(
+        "http://localhost:5000/api/datlichkham/654265c4c98064960cd65e0b",
+        body,
+        config
+      );
+      //refDropzone.current.getData()
+      console.log("Thong tin đặt lịch",res);
+      setOpen(false)
+    } catch (err) {
+      console.log(err);
+    }
 
   }
   const cancelButtonRef = useRef(null);
