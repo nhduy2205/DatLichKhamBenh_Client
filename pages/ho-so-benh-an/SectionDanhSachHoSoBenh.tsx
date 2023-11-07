@@ -1,8 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 const SectionList = React.forwardRef(function SectionTPHS(props: Props, ref) {
     const [data, setData] = useState([])
+    const router = useRouter()
+
     const getData = async () => {
         const config = {
             headers: {
@@ -23,11 +26,11 @@ const SectionList = React.forwardRef(function SectionTPHS(props: Props, ref) {
     useEffect(() => {
         getData()
     }, [])
-    function padTo2Digits(num:any) {
+    function padTo2Digits(num: any) {
         return num.toString().padStart(2, '0');
     }
 
-    function formatDate(date:any) {
+    function formatDate(date: any) {
         return [
             padTo2Digits(date.getDate()),
             padTo2Digits(date.getMonth() + 1),
@@ -36,15 +39,15 @@ const SectionList = React.forwardRef(function SectionTPHS(props: Props, ref) {
     }
     React.useImperativeHandle(ref, () => ({
         getData
-      }))
+    }))
     return (
         <>
             <div className="w-full flex flex-col gap-4 h-screen">
                 {data?.map((item: any) =>
-                    <a
+                    <div
                         className="rounded-sm w-full grid grid-cols-12 bg-white shadow p-3 gap-2 items-center 
-                        hover:shadow-lg hover:border-2 hover-0 border-indigo-200 transition delay-150 duration-300 ease-in-out hover:scale-105 transform"
-                        href={"dang-ky-lich-kham/" + item?._id}
+                        "
+                       
                     >
                         <div className="col-span-12 md:col-span-1">
                             <svg
@@ -85,10 +88,32 @@ const SectionList = React.forwardRef(function SectionTPHS(props: Props, ref) {
                             </p>
 
                         </div>
-                        <div className="md:col-start-12 col-span-2 md:col-span-1">
-                        <img src="/book.png" alt="" className="w-20 h-20" />
+                        <div className="md:col-start-10 col-span-4 md:col-span-4 flex">
+                            
+                            <button
+                                type="submit"
+                                className="mt-3 inline-flex w-full justify-center rounded-md 
+                        bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 
+                        ring-inset ring-gray-200 sm:mt-0 sm:w-auto
+                        hover:shadow-lg hover:border-2 hover-0 border-indigo-200 transition delay-150 duration-300 ease-in-out hover:scale-105 transform
+                        "
+                                onClick={() => router.push("dang-ky-lich-kham/" + item?._id)}
+                            >
+                                Đăng ký lịch khám
+                            </button>
+                            <button
+                                type="submit"
+                                className="mt-3 inline-flex w-full justify-center rounded-md 
+                        bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 
+                        ring-inset ring-gray-200 sm:mt-0 sm:w-auto
+                        hover:shadow-lg hover:border-2 hover-0 border-indigo-200 transition delay-150 duration-300 ease-in-out hover:scale-105 transform
+                        "
+                                onClick={() => router.push("danh-sach-lich-kham/" + item?._id)}
+                            >
+                                Lịch sử đăng ký
+                            </button>
                         </div>
-                    </a>
+                    </div>
                 )}
 
 

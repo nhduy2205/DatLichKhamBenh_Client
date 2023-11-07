@@ -41,7 +41,6 @@ export default function DatLichKham() {
 
   }
   const cancelButtonRef = useRef(null);
-  const [value, onChange] = useState<any>(new Date());
   return (
     <div className="bg-white">
       <Header />
