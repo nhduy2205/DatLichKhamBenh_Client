@@ -18,8 +18,6 @@ export default function DatLichKham() {
   return (
     <div className="bg-white">
       <Header />
-
-     
       <main className="w-full">
         <div className="bg-gray-200">
           <section className="cover bg-gray-200 relative bg-white px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-4">

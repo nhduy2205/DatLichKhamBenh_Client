@@ -62,7 +62,7 @@ export default function HomePage() {
           </section>
         </div>
   
-        <section className="relative bg-white px-4 py-8 sm:px-4 lg:px-8 xl:px-20 2xl:px-32 lg:py-16">
+        {/* <section className="relative bg-white px-4 py-8 sm:px-4 lg:px-8 xl:px-20 2xl:px-32 lg:py-16">
           <h2 className="text-blue-700 text-xl md:text-2xl xl:text-3xl font-bold leading-tight">
             ĐỘI NGŨ CHUYÊN GIA ĐẦU NGÀNH
           </h2>
@@ -131,7 +131,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="relative bg-gray-100 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 py-16 lg:py-32">
           <div className="flex flex-col lg:flex-row lg:-mx-8">
             <div className="w-full lg:w-1/2 lg:px-8">

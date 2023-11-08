@@ -1,5 +1,4 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
-import { Dialog, Transition } from "@headlessui/react";
 import "./../../app/globals.css";
 import axios from "axios";
 import Header from "@/components/Heaser";
@@ -11,8 +10,11 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DatePicker } from "@mui/x-date-pickers";
 import dayjs from "dayjs";
 import QRCode from "qrcode.react"
+import { Listbox, Transition, Dialog } from '@headlessui/react'
+import { CheckIcon, ChevronUpDownIcon } from '@heroicons/react/20/solid'
 export default function DatLichKham() {
   const router = useRouter()
+
   const [open, setOpen] = useState(false);
   const [khunggiokham, setKhunggiokham] = useState(0);
   const [khunggiokhamErrors, setKhunggiokhamErrors] = useState('');
@@ -31,7 +33,14 @@ export default function DatLichKham() {
   const [xacNhan, setXacNhan] = useState<any>();
   const [openThanhCong, setOpenThanhCong] = useState(false);
   const [idLichKham, setIdLichKham] = useState('');
-  const onSubmit = async (values: any) => {
+  const people = [
+    { name: 'MoMo', img: '/momo.png' },
+    { name: 'ZaloPay', img: '/zalopay.png' },
+    { name: 'VNPay', img: '/vnpay.png' },
+  ]
+  const [selected, setSelected] = useState(people[0])
+
+  const onSubmit = (values: any) => {
 
     if (khunggiokham > 0) {
       setKhunggiokhamErrors('')
@@ -45,29 +54,32 @@ export default function DatLichKham() {
       }
       console.log('>>>>>>>data', JSON.stringify(data));
       setXacNhan(data)
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        };
-        const res = await axios.post(
-          "http://localhost:5000/api/datlichkham/" + router.query.id,
-          JSON.stringify(data),
-          config
-        );
-        console.log("Thong tin đặt lịch", res?.data);
-        setIdLichKham(res?.data)
-        setOpen(true)
-      } catch (err) {
-        console.log(err);
-      }
+      setOpenThanhCong(true)
     } else {
       setKhunggiokhamErrors('Vui lòng chọn khung giờ khám')
     }
   }
 
-
+  const submitDatlich = async (data: any) => {
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const res = await axios.post(
+        "http://localhost:5000/api/datlichkham/" + router.query.id,
+        JSON.stringify(data),
+        config
+      );
+      console.log("Thong tin đặt lịch", res?.data);
+      setIdLichKham(res?.data)
+      setOpen(true)
+      setOpenThanhCong(false)
+    } catch (err) {
+      console.log(err);
+    }
+  }
   const fetchInfo = () => {
     return axios.get(url).then((res) => setThongTinHoSo(res.data));
   };
@@ -85,7 +97,6 @@ export default function DatLichKham() {
       fetchKhungGioKham();
     }
   }, [router.query.id]);
-  console.log('>>', khungGioKhamServer);
 
   useEffect(() => {
     setkhoakhamid(chuyenkhoa[0]?._id);
@@ -180,7 +191,7 @@ export default function DatLichKham() {
       <main className="w-full">
         <div className="bg-gray-200">
           <section className="cover bg-gray-200 relative bg-white px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-4">
-          <text className="block text-xl font-medium leading-6 text-gray-900 mb-4">Đăng ký lịch khám </text>
+            <text className="block text-xl font-medium leading-6 text-gray-900 mb-4">Đăng ký lịch khám </text>
             <div className="grid grid-cols-4 gap-4 mb-4">
               <text className="block text-sm font-medium leading-6 text-gray-900">Họ tên: </text>
               <text className="block text-sm font-medium leading-6 text-gray-900">{
@@ -502,7 +513,7 @@ export default function DatLichKham() {
       <Transition.Root show={openThanhCong} as={Fragment}>
         <Dialog
           as="div"
-          className="relative z-100 w-1/2"
+          className="relative z-100 w-1/3"
           onClose={setOpenThanhCong}
         >
           <Transition.Child
@@ -530,21 +541,144 @@ export default function DatLichKham() {
               >
                 <Dialog.Panel
                   className="relative z-100 transform overflow-hidden rounded-lg bg-white
-                 text-left shadow-xl transition-all sm:my-8 sm:w-1/2"
-                >
-
-
+                 text-left shadow-xl transition-all sm:my-8 sm:w-1/2">
                   <div className="bg-white px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
-                    <div className="flex items-center justify-center mb-4">
-                      <img src="/datlichthanhcong.png" alt="" className="w-12 h-12" />
-                    </div>
                     <Dialog.Title
                       as="h2"
                       className="text-center text-lg text-base font-semibold leading-6 text-indigo-600 mb-4"
                     >
-                      Đặt kịch khám thành công
+                      XÁC NHẬN THÔNG TIN THANH TOÁN
                     </Dialog.Title>
 
+                    <div className="grid grid-cols-4 gap-4 mb-2">
+                      <div className="col-span-3">
+                        <p className="text-md font-semibold text-indigo-600">Thông tin thanh toán</p>
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Số tiền thanh toán: </text>
+                          <text className="block text-sm font-semibold leading-6 text-indigo-600">
+                            110.000 VNĐ
+                          </text>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Hình thức thanh toán: </text>
+                          <text className="block text-sm font-medium leading-6 text-gray-900">
+                            <div className="w-72">
+                              <Listbox value={selected} onChange={setSelected}>
+                                <div className="relative mt-1">
+                                  <Listbox.Button className="relative w-full cursor-default rounded-lg bg-white py-2 pl-3 pr-10 text-left 
+                                  border-2 border-indigo-400 focus:shadow-md 
+                                  focus:outline-none focus-visible:border-indigo-500 
+                                  focus-visible:ring-2 focus-visible:ring-white/75 focus-visible:ring-offset-2 sm:text-sm">
+                                    <span className="block truncate flex">
+                                      <img src={selected.img} alt="" className="w-4 h-4 mr-4" />
+                                      {selected.name}
+                                    </span>
+                                    <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                      <ChevronUpDownIcon
+                                        className="h-5 w-5 text-gray-400"
+                                        aria-hidden="true"
+                                      />
+                                    </span>
+                                  </Listbox.Button>
+                                  <Transition
+                                    as={Fragment}
+                                    leave="transition ease-in duration-100"
+                                    leaveFrom="opacity-100"
+                                    leaveTo="opacity-0"
+                                  >
+                                    <Listbox.Options className="absolute mt-1 max-h-60 w-full overflow-auto 
+                                    rounded-md bg-white py-1 text-base shadow-lg ring-1 
+                                    ring-black/5 focus:outline-none sm:text-sm">
+                                      {people.map((person, personIdx) => (
+                                        <Listbox.Option
+                                          key={personIdx}
+                                          className={({ active }) =>
+                                            `relative cursor-default select-none py-2 pl-10 pr-4 ${active ? 'bg-indigo-100 text-indigo-900' : 'text-gray-900'
+                                            }`
+                                          }
+                                          value={person}
+                                        >
+                                          {({ log }) => (
+                                            <>
+                                              <span
+                                                className={`block truncate flex ${selected.name === person.name ? 'font-medium text-indigo-600' : 'font-normal text-gray-900'
+                                                  }`}
+                                              >
+                                                <img src={person.img} alt="" className="w-4 h-4 mr-4" />
+                                                {person.name}
+                                              </span>
+                                              {selected.name === person.name ? (
+                                                <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-indigo-600">
+                                                  <CheckIcon className="h-5 w-5" aria-hidden="true" />
+                                                </span>
+                                              ) : null}
+                                            </>
+                                          )}
+                                        </Listbox.Option>
+                                      ))}
+                                    </Listbox.Options>
+                                  </Transition>
+                                </div>
+                              </Listbox>
+                            </div>
+                          </text>
+                        </div>
+                        <p className="text-md font-semibold text-indigo-600">Thông tin bệnh nhân</p>
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Họ tên: </text>
+                          <text className="block text-sm font-medium leading-6 text-gray-900">{
+                            thongTinHoSo?.hoten
+                          }</text>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Giới tính: </text>
+                          <text className="block text-sm font-medium leading-6 text-gray-900">{
+                            thongTinHoSo?.gioitinh ? 'Nam' : "Nữ"
+                          }</text>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Ngày sinh: </text>
+                          <text className="block text-sm font-medium leading-6 text-gray-900">{
+                            formatDate(new Date(thongTinHoSo?.ngaysinh))
+                          }</text>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Địa chỉ: </text>
+                          <text className="block text-sm font-medium leading-6 text-gray-900">{
+                            thongTinHoSo?.diachi
+                          }</text>
+                        </div>
+                        <p className="text-md font-semibold text-indigo-600">Thông tin đặt lịch</p>
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Khoa khám bệnh: </text>
+                          <text className="block text-sm font-medium leading-6 text-gray-900">{
+                            chuyenkhoa?.find((item: any) => item?._id === khoakhamid)?.tenchuyenkhoa
+                          }</text>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Ngày khám: </text>
+                          <text className="block text-sm font-medium leading-6 text-gray-900">{
+                            ngaykham && getCurrentDateInputDDMMYYY(ngaykham)
+
+                          }</text>
+                        </div>
+
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Khung giờ khám: </text>
+                          <text className="block text-sm font-medium leading-6 text-gray-900">
+                            {khungGioKhamServer?.find((item: any) => item?.giatri === khunggiokham)?.khunggiokham
+                            }</text>
+                        </div>
+                        <div className="grid grid-cols-2 gap-4 mb-2">
+                          <text className="block text-sm font-medium leading-6 text-gray-900">Triệu chứng: </text>
+                          <text className="block text-sm font-medium leading-6 text-gray-900">
+                            {xacNhan?.trieuchung}
+                          </text>
+                        </div>
+
+
+                      </div>
+                    </div>
                   </div>
 
 
@@ -554,9 +688,9 @@ export default function DatLichKham() {
                       className="mt-3 inline-flex w-full justify-center rounded-md 
                         bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm ring-1 
                         ring-inset ring-gray-200 sm:mt-0 sm:w-auto"
-                      onClick={() => router.push('/chi-tiet-lich-kham/' + idLichKham)}
+                      onClick={() => submitDatlich(xacNhan)}
                     >
-                      Đến trang chi tiết lịch khám
+                      Thanh toán ngay
                     </button>
                   </div>
 
