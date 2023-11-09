@@ -52,7 +52,7 @@ export default function HomePage() {
                   </div>
                 </div>
                 <a
-                  href="pages/dat-lich-kham-online"
+                  href="dang-ky-dang-nhap"
                   className="px-8 py-4 bg-blue-700 text-white rounded inline-block mt-8 font-semibold"
                 >
                   Đặt lịch khám
