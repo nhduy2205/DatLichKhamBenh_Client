@@ -37,8 +37,7 @@ export default function Header() {
                   className="py-2 inline-block md:text-blue-600 md:hidden lg:block font-semibold"
                   href="#"
                 >
-                  Giới thiệu
-                </a>
+                  Giới thiệu</a>
               </li>
               <li className="md:ml-4">
                 <a
