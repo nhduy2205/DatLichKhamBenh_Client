@@ -44,13 +44,14 @@ const DropdownUser = () => {
       >
         <span className="hidden text-right lg:block">
           <span className="block text-sm font-medium text-black dark:text-white">
-            Thomas Anree
+            Nguyễn Hồng Hạnh
           </span>
-          <span className="block text-xs">UX Designer</span>
+          <span className="block text-xs">Bác sĩ</span>
         </span>
 
         <span className="h-12 w-12 rounded-full">
           <Image
+          className="h-12 w-12 rounded-full"
             width={112}
             height={112}
             src={"/user/user-01.png"}
@@ -107,7 +108,7 @@ const DropdownUser = () => {
                   fill=""
                 />
               </svg>
-              My Profile
+              Thông tin cá nhân
             </Link>
           </li>
           <li>
@@ -128,7 +129,7 @@ const DropdownUser = () => {
                   fill=""
                 />
               </svg>
-              My Contacts
+              Liên hệ
             </Link>
           </li>
           <li>
@@ -153,7 +154,7 @@ const DropdownUser = () => {
                   fill=""
                 />
               </svg>
-              Account Settings
+              Cài đặt cá nhân
             </Link>
           </li>
         </ul>
@@ -175,7 +176,7 @@ const DropdownUser = () => {
               fill=""
             />
           </svg>
-          Log Out
+          Đăng xuất
         </button>
       </div>
       {/* <!-- Dropdown End --> */}

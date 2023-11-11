@@ -1,6 +1,5 @@
-import { Package } from "../../pages/admin/types/product";
 
-const packageData: Package[] = [
+const packageData: any = [
   {
     name: "Free package",
     price: 0.0,
