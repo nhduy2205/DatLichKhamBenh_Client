@@ -1,4 +1,5 @@
-
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 const packageData: any = [
   {
     name: "Free package",
@@ -27,6 +28,24 @@ const packageData: any = [
 ];
 
 const TableThree = () => {
+  const [data, setData] = useState([]);
+  const url = "http://localhost:5000/api/datlichkham/all";
+  const getData = async () => {
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+        },
+    };
+    const res = await axios.get(
+      url
+    );
+    setData(res.data)
+}
+console.log(data);
+    useEffect(() => {
+      getData()
+    }, [])
+    console.log(data);
   return (
     <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       <div className="max-w-full overflow-x-auto">
