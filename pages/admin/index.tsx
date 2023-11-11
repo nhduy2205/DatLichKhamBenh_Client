@@ -1,4 +1,4 @@
-"use client";
+
 import "../admin/globals.css";
 import "../admin/data-tables-css.css";
 import "../admin/satoshi.css";
