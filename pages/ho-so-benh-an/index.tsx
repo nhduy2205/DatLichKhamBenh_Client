@@ -1,26 +1,50 @@
-import { Fragment, useRef, useState } from "react";
+import React, { Fragment, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import "./../../app/globals.css";
+import axios from "axios";
 import Header from "@/components/Heaser";
 import Footer from "@/components/footer";
 import { useForm } from "react-hook-form";
-
+import SectionDanhSachbenhNhan from "./SectionDanhSachHoSoBenh";
 export default function DatLichKham() {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const refDropzone = React.useRef<any>()
   const { register, handleSubmit, formState: { errors } } = useForm();
-  const onSubmit = (data: any) => {
+
+  const onSubmit = async (data: any) => {
     const values = {
       ...data,
       gioitinh: data.gioitinh === 'true' ? true : false,
       ngaysinh: new Date(data.ngaysinh)
     }
-    console.log('>>>values', values)
+    try {
+      const config = {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      };
+      const body = JSON.stringify(values);
+      console.log(body);
+      if (typeof window !== 'undefined') {
+        const item: any = JSON.parse(localStorage.getItem('benhnhan')) || ''
+        const res = await axios.post(
+          `http://localhost:5000/api/thongtinbenhnhan/themthongtinbenhnhan/${item?.id}`,
+          body,
+          config
+        );
+        refDropzone.current.getData()
+        setOpen(false)
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
   }
   const cancelButtonRef = useRef(null);
-
   return (
     <div className="bg-white">
       <Header />
+
       <Transition.Root show={open} as={Fragment}>
         <Dialog
           as="div"
@@ -108,13 +132,13 @@ export default function DatLichKham() {
                           <input
                             type="text"
                             id="soBHYT"
-                            {...register("soBHYT", { required: true, minLength: 15, maxLength: 15 })}
+                            {...register("soBHYT", { minLength: 15, maxLength: 15 })}
                             autoComplete="soBHYT"
                             className="block pl-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                           {errors.soBHYT && errors.soBHYT.type === "minLength" && (
                             <p className="text-red-700 text-sm">
-                               Số thẻ bảo hiểm y tế có 15 ký tự
+                              Số thẻ bảo hiểm y tế có 15 ký tự
                             </p>
                           )}
                           {errors.soBHYT && errors.soBHYT.type === "maxLength" && (
@@ -122,11 +146,8 @@ export default function DatLichKham() {
                               Số thẻ bảo hiểm y tế có 15 ký tự
                             </p>
                           )}
-                          {errors.soBHYT && errors.soBHYT.type === "required" && (
-                            <p className="text-red-700 text-sm">
-                              Số thẻ bảo hiểm y tế phải bắt buộc nhập
-                            </p>
-                          )}                        </div>
+
+                        </div>
                         <div>
                           <label
                             htmlFor="date"
@@ -134,15 +155,17 @@ export default function DatLichKham() {
                           >
                             Ngày sinh
                           </label>
-
-
                           <input
+                            data-date-format="DD MMMM YYYY"
                             type="date"
+                            data-date=""
                             placeholder="dd/mm/yyyy"
                             id="username"
                             pattern="\d{2}/\d{2}/\d{4}"
                             {...register("ngaysinh")}
-                            className="block pl-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                            className="block pl-2 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 
+                            ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset
+                             focus:ring-indigo-600 sm:text-sm sm:leading-6"
                           />
                         </div>
 
@@ -253,8 +276,9 @@ export default function DatLichKham() {
         </Dialog>
       </Transition.Root>
       <main className="w-full">
-        <div className="bg-gray-100">
-          <section className="cover relative bg-white px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-4">
+        <div className="bg-gray-200">
+          <section className="cover bg-gray-200 relative bg-white px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 overflow-hidden py-4">
+            <p className="text-indigo-600 text-2xl font-bold">DANH SÁCH HỒ SƠ BỆNH ÁN</p>
             <button
               className="my-4 px-4 py-3 text-md font-bold text-white bg-orange-600 rounded-md border-solid 
             border-2 border-orange-600"
@@ -264,6 +288,7 @@ export default function DatLichKham() {
             >
               Tạo hồ sơ mới
             </button>
+            <SectionDanhSachbenhNhan ref={refDropzone} />
           </section>
         </div>
       </main>

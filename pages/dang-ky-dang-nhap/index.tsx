@@ -56,8 +56,14 @@ export default function DatLichKham() {
         body,
         config
       );
+      const values = {
+        sdt: res.data?.benhnhan?.sodienthoai,
+        id: res.data?.benhnhan?._id
+      }
+      console.log("thành công", values);
+      localStorage.setItem('benhnhan', JSON.stringify(values));
       router.push('lua-chon-kham')
-      console.log("thành công", res.data);
+      
     } catch (err) {
       console.log(err);
     }
@@ -83,7 +89,6 @@ export default function DatLichKham() {
               >
                 Số điện thoại
               </label>
-              
               <div>
                 <input
                   type="tel"

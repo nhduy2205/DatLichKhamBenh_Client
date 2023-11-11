@@ -14,10 +14,10 @@ export default function HomePage() {
               />
             </div>
   
-            <div className="lg:w-3/4 xl:w-2/4 relative z-10 h-100 lg:mt-16 ">
+            <div className="lg:w-3/4 xl:w-2/4 relative z-10 h-100">
               <div>
-                <h2 className="text-white text-3xl md:text-4xl xl:text-5xl font-bold leading-tight">
-                  Đặt lịch khám bệnh trực tuyến
+                <h2 className="text-white text-3xl md:text-4xl xl:text-5xl font-bold leading-tight uppercase">
+                  Đặt lịch khám bệnh <p className="mt-2">trực tuyến</p>
                 </h2>
                 <div className="grid grid-cols-3 gap-1 mt-4 ">
                   <div
@@ -62,7 +62,7 @@ export default function HomePage() {
           </section>
         </div>
   
-        <section className="relative bg-white px-4 py-8 sm:px-4 lg:px-8 xl:px-20 2xl:px-32 lg:py-16">
+        {/* <section className="relative bg-white px-4 py-8 sm:px-4 lg:px-8 xl:px-20 2xl:px-32 lg:py-16">
           <h2 className="text-blue-700 text-xl md:text-2xl xl:text-3xl font-bold leading-tight">
             ĐỘI NGŨ CHUYÊN GIA ĐẦU NGÀNH
           </h2>
@@ -131,7 +131,7 @@ export default function HomePage() {
               </div>
             </div>
           </div>
-        </section>
+        </section> */}
         <section className="relative bg-gray-100 px-4 sm:px-8 lg:px-16 xl:px-40 2xl:px-64 py-16 lg:py-32">
           <div className="flex flex-col lg:flex-row lg:-mx-8">
             <div className="w-full lg:w-1/2 lg:px-8">
