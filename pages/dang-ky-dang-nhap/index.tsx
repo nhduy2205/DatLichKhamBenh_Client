@@ -72,7 +72,7 @@ export default function DatLichKham() {
     <div className="bg-white">
       <Header />
 
-      <div className="relative border border-indigo-600 grid grid-cols-2 gap-4  content-center md:container md:mx-auto bg-white">
+      <div className="relative  grid grid-cols-2 gap-4 content-center md:container md:mx-auto bg-white mt-4">
         <img src="/datlich.jpg" alt="" className="w-full h-full object-cover" />
         <div className="w-full max-w-md space-y-8">
           <div>
