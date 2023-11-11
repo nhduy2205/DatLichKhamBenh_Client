@@ -63,13 +63,13 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
     >
       {/* <!-- SIDEBAR HEADER --> */}
       <div className="flex items-center justify-between gap-2 px-6 py-5.5 lg:py-6.5">
-       
+        <a href="/">
           <img
             src="/logo.png"
             className="h-auto max-w-full rounded-lg"
             alt=""
           />
-        
+        </a>
 
         <button
           ref={trigger}
@@ -79,7 +79,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
           className="block lg:hidden"
         >
           <svg
-            className="fill-current"
+            className="fill-white"
             width="20"
             height="18"
             viewBox="0 0 20 18"
@@ -100,7 +100,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
         <nav className="mt-5 py-4 px-4 lg:mt-9 lg:px-6">
           {/* <!-- Menu Group --> */}
           <div>
-            <h3 className="mb-4 ml-4 text-sm font-semibold text-bodydark2">
+            <h3 className="mb-4 ml-4 text-sm font-semibold text-white">
               MENU
             </h3>
 
@@ -108,7 +108,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               {/* <!-- Menu Item Dashboard --> */}
               <SidebarLinkGroup
                 activeCondition={
-                  pathname === "/" || pathname.includes("dashboard")
+                  pathname === "/admin" || pathname.includes("admin")
                 }
               >
                 {(handleClick, open) => {
@@ -116,8 +116,9 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                     <React.Fragment>
                       <Link
                         href="#"
-                        className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/" ||
-                            pathname.includes("dashboard")) &&
+                        className={`group relative flex items-center gap-2.5 
+                        rounded-sm py-2 px-4 font-medium text-white duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${(pathname === "/" ||
+                          pathname.includes("dashboard")) &&
                           "bg-graydark dark:bg-meta-4"
                           }`}
                         onClick={(e) => {
@@ -128,7 +129,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         }}
                       >
                         <svg
-                          className="fill-current"
+                          className="fill-white"
                           width="18"
                           height="18"
                           viewBox="0 0 18 18"
@@ -154,7 +155,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                         </svg>
                         Quản lý
                         <svg
-                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-current ${open && "rotate-180"
+                          className={`absolute right-4 top-1/2 -translate-y-1/2 fill-white ${open && "rotate-180"
                             }`}
                           width="20"
                           height="20"
@@ -179,19 +180,12 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                           <li>
                             <Link
                               href="/"
-                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/" && "text-white"
+                              className={`group relative flex items-center gap-2.5 rounded-md px-4 
+                               duration-300 ease-in-out hover:text-white
+                               ${pathname === "/admin" ?  "text-blue-200 font-bold underline italic" : "font-medium text-white"
                                 } `}
                             >
-                               Lịch khám online
-                            </Link>
-                          </li>
-                          <li>
-                            <Link
-                              href="/"
-                              className={`group relative flex items-center gap-2.5 rounded-md px-4 font-medium text-bodydark2 duration-300 ease-in-out hover:text-white ${pathname === "/" && "text-white"
-                                } `}
-                            >
-                               Ca trực
+                              Lịch khám online
                             </Link>
                           </li>
                         </ul>
@@ -204,11 +198,11 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
               <li>
                 <Link
                   href="/chart"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("chart") && "bg-graydark dark:bg-meta-4"
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-white duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("chart") && "bg-graydark dark:bg-meta-4"
                     }`}
                 >
                   <svg
-                    className="fill-current"
+                    className="fill-white"
                     width="18"
                     height="19"
                     viewBox="0 0 18 19"
@@ -239,18 +233,15 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
                   Thống kê
                 </Link>
               </li>
-              {/* <!-- Menu Item Tables --> */}
-
-              {/* <!-- Menu Item Settings --> */}
               <li>
                 <Link
                   href="/settings"
-                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-bodydark1 duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("settings") &&
+                  className={`group relative flex items-center gap-2.5 rounded-sm py-2 px-4 font-medium text-white duration-300 ease-in-out hover:bg-graydark dark:hover:bg-meta-4 ${pathname.includes("settings") &&
                     "bg-graydark dark:bg-meta-4"
                     }`}
                 >
                   <svg
-                    className="fill-current"
+                    className="fill-white"
                     width="18"
                     height="19"
                     viewBox="0 0 18 19"
@@ -285,7 +276,7 @@ const Sidebar = ({ sidebarOpen, setSidebarOpen }: SidebarProps) => {
             </ul>
           </div>
 
-         
+
         </nav>
         {/* <!-- Sidebar Menu --> */}
       </div>
